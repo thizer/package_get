@@ -10,17 +10,24 @@ class FavoritesPage extends StatelessWidget {
         title: Text("Get - Thizer"),
       ),
       backgroundColor: Colors.grey[200],
-      body: ListView(
-        children: List.generate(
-          Get.find<FavoritesController>().count,
-          (int i) {
-            return Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(8.0),
-              margin: const EdgeInsets.all(10),
-              child: GetBuilder<FavoritesController>(
-                builder: (FavoritesController controller) {
-                  return ListTile(
+
+      /// Quando um item é removido, o listview precisa ser atualizado
+      /// porque no momento que o metodo build foi chamado há x números de itens,
+      /// Se o widget não está dentro de uma função (geralmente builder:(){}) ele
+      /// não tem como atualizar a si próprio, isso pode dar erro "RangeError (index...)"
+      /// Se fosse um ListView.builder, teria o itemCount que teria um número que precisaria
+      /// ser atualizado, usando ListView com um gerador de widgets, o listview pai precisa ser atualizado
+      body: GetBuilder<FavoritesController>(
+          builder: (FavoritesController controller) {
+        return ListView(
+          children: List.generate(
+            Get.find<FavoritesController>().count,
+            (int i) {
+              return Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(10),
+                  child: ListTile(
                     leading: Container(
                       color: Colors.primaries[controller.itemAt(i)],
                       width: 60,
@@ -35,13 +42,11 @@ class FavoritesPage extends StatelessWidget {
                         Get.find<FavoritesController>().removeAt(i);
                       },
                     ),
-                  );
-                },
-              ),
-            );
-          },
-        ),
-      ),
+                  ));
+            },
+          ),
+        );
+      }),
     );
   }
 }
