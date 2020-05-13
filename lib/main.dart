@@ -4,7 +4,7 @@ import 'package:package_get/list_page.dart';
 
 void main() {
   runApp(GetMaterialApp(
-    navigatorKey: Get.key,
+    // Get.key não é mais necessário na versão 2.0
     home: MyHomePage(),
     debugShowCheckedModeBanner: false,
   ));
