@@ -21,7 +21,7 @@ class FavoritesPage extends StatelessWidget {
           builder: (FavoritesController controller) {
         return ListView(
           children: List.generate(
-            Get.find<FavoritesController>().count,
+            controller.count,
             (int i) {
               return Container(
                   color: Colors.white,
@@ -39,7 +39,7 @@ class FavoritesPage extends StatelessWidget {
                         color: Colors.red[300],
                       ),
                       onPressed: () {
-                        Get.find<FavoritesController>().removeAt(i);
+                        controller.removeAt(i);
                       },
                     ),
                   ));
